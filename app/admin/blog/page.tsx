@@ -37,8 +37,7 @@ function FeaturedImage({ storageId }: { storageId: string }) {
 }
 
 export default function AdminBlogPage() {
-  // Sidebar state
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("date-desc");
 const [editId, setEditId] = useState<Id<'posts'> | null>(null);
@@ -199,60 +198,30 @@ const [editId, setEditId] = useState<Id<'posts'> | null>(null);
   };
 
   return (
-    <div className="min-h-screen flex bg-gray-50 dark:bg-gray-900">
-      {/* Collapsible Sidebar */}
-      <aside className={`w-64 bg-gray-100 dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col min-h-screen ${sidebarOpen ? '' : 'hidden'}`}>
-        <div className="flex items-center justify-between mb-4 px-2 pt-2">
-          <span className={`text-xl font-bold tracking-tight text-blue-600 transition-all duration-300 ${sidebarOpen ? 'opacity-100' : 'opacity-0 w-0 h-0 overflow-hidden'}`}>Admin</span>
-          <button
-            className="text-gray-500 hover:text-blue-600 focus:outline-none"
-            onClick={() => setSidebarOpen(v => !v)}
-            title={sidebarOpen ? 'Collapse' : 'Expand'}
-          >
-            {sidebarOpen ? <span>&#x25C0;</span> : <span>&#x25B6;</span>}
-          </button>
+    <div className="min-h-screen flex bg-gray-950">
+      {/* Permanent Sidebar */}
+      <aside className="w-64 bg-gray-900 border-r border-gray-800 flex flex-col min-h-screen p-6">
+        <div className="mb-8 flex items-center gap-2">
+          <span className="text-2xl">📝</span>
+          <span className="text-lg font-bold tracking-tight text-blue-300">Admin Blog</span>
         </div>
-        {/* Sidebar nav links (hidden when collapsed) */}
-        {sidebarOpen && (
-          <React.Fragment>
-            <nav className="flex flex-col gap-2 px-2">
-  <a href="/admin/blogeditor" className="px-3 py-2 rounded hover:bg-blue-100 dark:hover:bg-gray-700 transition-colors font-medium">Blog Editor</a>
-  <div className="flex items-center gap-2 mt-2 mb-2">
-    <span className="font-semibold text-blue-700 dark:text-blue-300">Blog Posts</span>
-    <button onClick={handleNew} className="ml-auto px-2 py-1 text-xs rounded bg-blue-600 text-white hover:bg-blue-700">New</button>
-  </div>
-  <a href="/admin/blog" className="px-3 py-2 rounded hover:bg-green-100 dark:hover:bg-green-900 transition-colors font-medium text-green-700 dark:text-green-300 bg-green-50 dark:bg-green-950">All Posts</a>
-  <a href="/admin/authors" className="mt-1 px-3 py-2 rounded hover:bg-blue-100 dark:hover:bg-blue-900 transition-colors font-medium text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950">Authors</a>
-  <div className="mt-2">
-    <div className="max-h-64 overflow-y-auto divide-y divide-gray-200 dark:divide-gray-700 bg-gray-50 dark:bg-gray-900 rounded shadow-inner">
-      {posts.slice(0, 10).map((post: any) => (
-        <a
-          key={post._id}
-          href={`/blog/${post.slug || post._id}`}
-          className="block w-full text-left px-3 py-2 hover:bg-blue-100 dark:hover:bg-gray-700 transition-colors text-sm truncate"
-        >
-          <div className="truncate">{post.title}</div>
-          <div className="text-xs text-gray-500">{post.date ? post.date.substring(0, 10) : ''} &middot; {post.likes || 0} likes</div>
-        </a>
-      ))}
-    </div>
-  </div>
-</nav>
-            <div className="mt-auto pt-8 border-t border-gray-200 dark:border-gray-700 px-2">
-              <button className="w-full px-3 py-2 rounded bg-red-500 text-white hover:bg-red-600 transition-colors font-medium">Logout</button>
-            </div>
-          </React.Fragment>
-        )}
+        <nav className="flex flex-col gap-2 text-sm">
+          <a href="/admin" className="px-3 py-2 rounded text-gray-200 hover:bg-gray-800 hover:text-blue-300 transition-colors font-medium">Dashboard</a>
+          <a href="/admin/blog" className="px-3 py-2 rounded text-blue-300 bg-gray-800 font-semibold">Blog</a>
+          <a href="/admin/blogeditor" className="px-3 py-2 rounded text-gray-200 hover:bg-gray-800 hover:text-blue-300 transition-colors font-medium">Blog Editor</a>
+          <a href="/admin/authors" className="px-3 py-2 rounded text-gray-200 hover:bg-gray-800 hover:text-blue-300 transition-colors font-medium">Authors</a>
+
+        </nav>
       </aside>
       <main className="flex-1 p-8">
         <h1 className="text-4xl font-extrabold mb-8 text-center text-blue-300 drop-shadow-lg tracking-tight">Blog Editor</h1>
-        <div className="w-full max-w-2xl mx-auto bg-gray-800/90 dark:bg-gray-900/90 rounded-3xl shadow-2xl shadow-blue-900/40 border border-blue-900/40 p-10 flex flex-col items-center backdrop-blur-lg">
+        <div className="w-full max-w-2xl mx-auto bg-gray-800/90 rounded-3xl shadow-2xl shadow-blue-900/40 border border-blue-900/40 p-10 flex flex-col items-center backdrop-blur-lg">
           <input
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Post Title"
-            className="w-full px-4 py-3 mb-3 border-none rounded-xl text-lg bg-gray-900/80 text-blue-100 placeholder:text-blue-400 focus:ring-2 focus:ring-blue-500 shadow-inner"
+            className="w-full px-4 py-3 mb-3 border-none rounded-xl text-lg bg-gray-800/80 text-blue-100 placeholder:text-blue-400 focus:ring-2 focus:ring-blue-500 shadow-inner"
           />
           <div className="flex flex-wrap gap-4 mb-6 w-full">
             <input
@@ -260,12 +229,12 @@ const [editId, setEditId] = useState<Id<'posts'> | null>(null);
               value={slug}
               onChange={e => setSlug(e.target.value)}
               placeholder="Slug (optional)"
-              className="px-4 py-2 border-none rounded-lg flex-1 bg-gray-900/80 text-blue-100 placeholder:text-blue-400 shadow-inner"
+              className="px-4 py-2 border-none rounded-lg flex-1 bg-gray-800/80 text-blue-100 placeholder:text-blue-400 shadow-inner"
             />
             <select
               value={author}
               onChange={e => setAuthor(e.target.value as Id<'authors'>)}
-              className="px-4 py-2 border-none rounded-lg flex-1 bg-gray-900/80 text-blue-100 placeholder:text-blue-400 shadow-inner"
+              className="px-4 py-2 border-none rounded-lg flex-1 bg-gray-800/80 text-blue-100 placeholder:text-blue-400 shadow-inner"
               required
             >
               <option value="">Select Author</option>
@@ -277,14 +246,14 @@ const [editId, setEditId] = useState<Id<'posts'> | null>(null);
               type="date"
               value={date}
               onChange={e => setDate(e.target.value)}
-              className="px-4 py-2 border-none rounded-lg flex-1 bg-gray-900/80 text-blue-100 placeholder:text-blue-400 shadow-inner"
+              className="px-4 py-2 border-none rounded-lg flex-1 bg-gray-800/80 text-blue-100 placeholder:text-blue-400 shadow-inner"
             />
             <input
               type="text"
               value={tags}
               onChange={e => setTags(e.target.value)}
               placeholder="Tags (comma separated)"
-              className="px-4 py-2 border-none rounded-lg flex-1 bg-gray-900/80 text-blue-100 placeholder:text-blue-400 shadow-inner"
+              className="px-4 py-2 border-none rounded-lg flex-1 bg-gray-800/80 text-blue-100 placeholder:text-blue-400 shadow-inner"
             />
             <input
               type="number"
@@ -292,7 +261,7 @@ const [editId, setEditId] = useState<Id<'posts'> | null>(null);
               onChange={e => setLikes(Number(e.target.value))}
               placeholder="Likes"
               min={0}
-              className="px-4 py-2 border-none rounded-lg flex-1 bg-gray-900/80 text-blue-100 placeholder:text-blue-400 shadow-inner"
+              className="px-4 py-2 border-none rounded-lg flex-1 bg-gray-800/80 text-blue-100 placeholder:text-blue-400 shadow-inner"
             />
           </div>
           {/* Featured Image Upload */}
@@ -302,7 +271,7 @@ const [editId, setEditId] = useState<Id<'posts'> | null>(null);
               type="file"
               accept="image/*"
               onChange={handleFeaturedImageChange}
-              className="block w-full text-blue-100 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+              className="block w-full text-blue-100 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-gray-800 file:text-blue-700 hover:file:bg-gray-800"
             />
             {(() => {
               console.log("featuredImagePreview:", featuredImagePreview, "featuredImage:", featuredImage);

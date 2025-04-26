@@ -1,4 +1,8 @@
 import type { Metadata } from 'next'
+import { StackProvider } from "@stackframe/stack";
+
+import { stackServerApp } from "../stack";
+import ConvexClientProvider from '../components/ConvexClientProvider';
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 
@@ -18,7 +22,7 @@ export const metadata: Metadata = {
 }
 
 
-import ConvexClientProvider from '../components/ConvexClientProvider';
+
 
 export default function RootLayout({
   children,
@@ -27,14 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <header className="flex justify-end items-center p-4 gap-4 h-16">
-          
-        </header>
-        <ConvexClientProvider>
-          {children}
-        </ConvexClientProvider>
-      </body>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}><StackProvider app={stackServerApp}><ConvexClientProvider>{children}</ConvexClientProvider></StackProvider></body>
     </html>
   )
 }

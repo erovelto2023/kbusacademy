@@ -40,6 +40,7 @@ export default function BlogEditorPage() {
       <aside className="w-72 bg-gray-900/95 border-r border-blue-900/40 p-4 flex flex-col">
         <h2 className="text-xl font-bold text-blue-200 mb-6">Admin Panel</h2>
         <nav className="flex flex-col gap-2 mb-8">
+          <Link href="/admin" className="px-3 py-2 rounded text-gray-200 hover:bg-gray-800 hover:text-blue-300 transition-colors font-medium">Dashboard</Link>
           <Link href="/admin/blogeditor" className="px-3 py-2 rounded bg-blue-700 text-white font-semibold">Blog Editor</Link>
           <Link href="/admin/blog" className="px-3 py-2 rounded bg-blue-800 text-blue-100 font-semibold">Blog Posts</Link>
         </nav>

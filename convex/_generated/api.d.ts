@@ -17,6 +17,7 @@ import type * as authors from "../authors.js";
 import type * as files from "../files.js";
 import type * as heroImages from "../heroImages.js";
 import type * as posts from "../posts.js";
+import type * as students from "../students.js";
 
 /**
  * A utility for referencing Convex functions in your app's API.
@@ -31,6 +32,7 @@ declare const fullApi: ApiFromModules<{
   files: typeof files;
   heroImages: typeof heroImages;
   posts: typeof posts;
+  students: typeof students;
 }>;
 export declare const api: FilterApi<
   typeof fullApi,

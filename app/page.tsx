@@ -1,23 +1,11 @@
 import Image from "next/image";
 import HeroImageConvex from "./HeroImageConvex";
+import MenuBar from "./components/MenuBar";
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen font-sans bg-gradient-to-br from-black via-blue-900 to-gray-900 text-gray-100">
-      {/* Header */}
-      <header className="w-full py-6 bg-gradient-to-r from-black via-blue-900 to-gray-900 shadow-lg sticky top-0 z-40 border-b border-blue-900">
-        <div className="container mx-auto flex justify-between items-center px-4">
-          <span className="flex items-center gap-2">
-            <h1 className="text-3xl font-extrabold tracking-tight text-blue-200 drop-shadow">K Business Academy</h1>
-          </span>
-          <nav className="space-x-6 text-lg font-semibold">
-            <a href="#features" className="hover:text-blue-600 transition-colors">Features</a>
-            <a href="#community" className="hover:text-blue-600 transition-colors">Community</a>
-            <a href="/blog" className="hover:text-blue-400 transition-colors">Blog</a>
-            <a href="#enroll" className="hover:text-pink-600 transition-colors">Enroll</a>
-          </nav>
-        </div>
-      </header>
+      <MenuBar />
 
       {/* Hero Section */}
       <section className="relative flex-1 w-full flex flex-col items-center justify-center py-20 px-4 text-center overflow-hidden">

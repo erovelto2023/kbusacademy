@@ -93,90 +93,105 @@ function AuthorImage({ storageId, alt, className }: { storageId: string, alt?: s
   };
 
   return (
-    <div className="max-w-2xl mx-auto py-12">
-      <h1 className="text-3xl font-bold mb-6 text-center">Manage Authors</h1>
-      <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow p-6 mb-10 flex flex-col gap-4">
-        <input
-          type="text"
-          value={name}
-          onChange={e => setName(e.target.value)}
-          placeholder="Author Name"
-          className="border rounded px-4 py-2"
-          required
-        />
-        <textarea
-          value={bio}
-          onChange={e => setBio(e.target.value)}
-          placeholder="Author Bio"
-          className="border rounded px-4 py-2 min-h-[80px]"
-          required
-        />
-        <div>
-          <label className="block mb-2 font-medium">Author Image</label>
-          <input type="file" accept="image/*" onChange={handleImageChange} />
-          {imagePreview && (
-  imagePreview.startsWith('blob:') ? (
-    <img
-      src={imagePreview}
-      alt="Preview"
-      className="mt-2 rounded w-24 h-24 object-cover border"
-    />
-  ) : image ? (
-    <AuthorImage storageId={image} alt="Preview" className="mt-2 rounded w-24 h-24 object-cover border" />
-  ) : null
-)}
+    <div className="min-h-screen flex bg-gray-950">
+      {/* Permanent Sidebar */}
+      <aside className="w-64 bg-gray-900 border-r border-gray-800 flex flex-col min-h-screen p-6">
+        <div className="mb-8 flex items-center gap-2">
+          <span className="text-2xl">📝</span>
+          <span className="text-lg font-bold tracking-tight text-blue-300">Admin Blog</span>
         </div>
-        <button
-          type="submit"
-          className="bg-blue-600 text-white rounded px-4 py-2 font-semibold mt-2 disabled:opacity-50"
-          disabled={saving}
-        >
-          {saving ? (editId ? "Updating..." : "Saving...") : (editId ? "Update Author" : "Add Author")}
-        </button>
-        {editId && (
+        <nav className="flex flex-col gap-2 text-sm">
+          <a href="/admin" className="px-3 py-2 rounded text-gray-200 hover:bg-gray-800 hover:text-blue-300 transition-colors font-medium">Dashboard</a>
+          <a href="/admin/blog" className="px-3 py-2 rounded text-gray-200 hover:bg-gray-800 hover:text-blue-300 transition-colors font-medium">Blog</a>
+          <a href="/admin/blogeditor" className="px-3 py-2 rounded text-gray-200 hover:bg-gray-800 hover:text-blue-300 transition-colors font-medium">Blog Editor</a>
+          <a href="/admin/authors" className="px-3 py-2 rounded text-blue-300 bg-gray-800 font-semibold">Authors</a>
+        </nav>
+      </aside>
+      <main className="flex-1 p-8">
+        <h1 className="text-3xl font-bold mb-6 text-center text-blue-300">Manage Authors</h1>
+        <form onSubmit={handleSubmit} className="bg-gray-900 rounded-lg shadow p-6 mb-10 flex flex-col gap-4">
+          <input
+            type="text"
+            value={name}
+            onChange={e => setName(e.target.value)}
+            placeholder="Author Name"
+            className="border border-gray-700 rounded px-4 py-2 bg-gray-800 text-gray-100 placeholder:text-gray-400"
+            required
+          />
+          <textarea
+            value={bio}
+            onChange={e => setBio(e.target.value)}
+            placeholder="Author Bio"
+            className="border border-gray-700 rounded px-4 py-2 min-h-[80px] bg-gray-800 text-gray-100 placeholder:text-gray-400"
+            required
+          />
+          <div>
+            <label className="block mb-2 font-medium text-gray-200">Author Image</label>
+            <input type="file" accept="image/*" onChange={handleImageChange} className="text-gray-100" />
+            {imagePreview && (
+              imagePreview.startsWith('blob:') ? (
+                <img
+                  src={imagePreview}
+                  alt="Preview"
+                  className="mt-2 rounded w-24 h-24 object-cover border border-gray-700"
+                />
+              ) : image ? (
+                <AuthorImage storageId={image} alt="Preview" className="mt-2 rounded w-24 h-24 object-cover border border-gray-700" />
+              ) : null
+            )}
+          </div>
           <button
-            type="button"
-            className="bg-gray-400 text-white rounded px-4 py-2 font-semibold mt-2 ml-2"
-            onClick={handleCancel}
+            type="submit"
+            className="bg-blue-600 text-white rounded px-4 py-2 font-semibold mt-2 disabled:opacity-50"
             disabled={saving}
           >
-            Cancel
+            {saving ? (editId ? "Updating..." : "Saving...") : (editId ? "Update Author" : "Add Author")}
           </button>
-        )}
-      </form>
-      <h2 className="text-xl font-semibold mb-4">All Authors</h2>
-      <ul className="space-y-4">
-        {authors.map((author: any) => (
-          <li key={author._id} className="flex items-center gap-4 bg-gray-100 rounded p-4">
-            {author.image && (
-              <AuthorImage storageId={author.image} alt={author.name} className="w-12 h-12 rounded-full object-cover border" />
-            )}
-            <div className="flex-1">
-              <div className="font-bold">{author.name}</div>
-              <div className="text-sm text-gray-600">{author.bio}</div>
-            </div>
+          {editId && (
             <button
-              className="px-3 py-1 bg-yellow-500 text-white rounded mr-2"
-              onClick={() => handleEdit(author)}
+              type="button"
+              className="bg-gray-400 text-white rounded px-4 py-2 font-semibold mt-2 ml-2"
+              onClick={handleCancel}
+              disabled={saving}
             >
-              Edit
+              Cancel
             </button>
-            <button
-              className="px-3 py-1 bg-red-600 text-white rounded mr-2"
-              onClick={() => handleDelete(author._id)}
-            >
-              Delete
-            </button>
-            <Link
-              href={`/authors/${author.slug}`}
-              className="px-3 py-1 bg-blue-600 text-white rounded"
-              target="_blank"
-            >
-              Visit
-            </Link>
-          </li>
-        ))}
-      </ul>
+          )}
+        </form>
+        <h2 className="text-xl font-semibold mb-4 text-gray-200">All Authors</h2>
+        <ul className="space-y-4">
+          {authors.map((author: any) => (
+            <li key={author._id} className="flex items-center gap-4 bg-gray-800 rounded p-4">
+              {author.image && (
+                <AuthorImage storageId={author.image} alt={author.name} className="w-12 h-12 rounded-full object-cover border border-gray-700" />
+              )}
+              <div className="flex-1">
+                <div className="font-bold text-gray-100">{author.name}</div>
+                <div className="text-sm text-gray-300">{author.bio}</div>
+              </div>
+              <button
+                className="px-3 py-1 bg-yellow-500 text-white rounded mr-2"
+                onClick={() => handleEdit(author)}
+              >
+                Edit
+              </button>
+              <button
+                className="px-3 py-1 bg-red-600 text-white rounded mr-2"
+                onClick={() => handleDelete(author._id)}
+              >
+                Delete
+              </button>
+              <Link
+                href={`/authors/${author.slug}`}
+                className="px-3 py-1 bg-blue-600 text-white rounded"
+                target="_blank"
+              >
+                Visit
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </main>
     </div>
   );
 }
